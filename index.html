@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Forecast App</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-400 to-indigo-600 min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-6xl">
+    
+    <!-- Header -->
+    <header class="text-center mb-6">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white">Weather Forecast App</h1>
+      <p class="text-white mt-2 text-sm md:text-base">Get live weather updates for your city or location</p>
+    </header>
+
+    <!-- Search Section -->
+    <section class="flex flex-col sm:flex-row gap-2 justify-center mb-6">
+      <input 
+        type="text" 
+        id="cityInput" 
+        placeholder="Enter city name" 
+        class="flex-1 px-4 py-2 rounded-lg focus:outline-none shadow text-gray-800"
+      />
+      <button id="searchBtn" class="bg-white text-blue-600 font-semibold px-4 py-2 rounded-lg shadow">
+        Search
+      </button>
+      <button id="locBtn" class="bg-yellow-400 text-black font-semibold px-4 py-2 rounded-lg shadow">
+        Use My Location
+      </button>
+    </section>
+
+    <!-- Dropdown for Recent Cities -->
+    <section class="flex justify-center mb-6">
+      <select id="recentCities" class="hidden px-4 py-2 rounded-lg shadow bg-white text-gray-700"></select>
+    </section>
+
+    <!-- Weather Display -->
+    <section id="weatherDisplay" 
+             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Weather cards will be injected dynamically here -->
+    </section>
+  </div>
+
+  <!-- Script -->
+  <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+/* Custom styles to enhance Tailwind */
+.weather-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Weather backgrounds (for dynamic changes in JS) */
+.bg-sunny {
+  background: linear-gradient(to right, #fbc531, #e1b12c);
+}
+
+.bg-rainy {
+  background: linear-gradient(to right, #74b9ff, #0984e3);
+}
+
+.bg-cloudy {
+  background: linear-gradient(to right, #636e72, #b2bec3);
+}
+
+.bg-clear {
+  background: linear-gradient(to right, #48dbfb, #00cec9);
+}
+
+/* Icon sizes */
+.weather-icon {
+  width: 64px;
+  height: 64px;
+}
+
+@media (max-width: 400px) {
+  /* For iPhone SE */
+  .weather-icon {
+    width: 48px;
+    height: 48px;
+  }
+}
