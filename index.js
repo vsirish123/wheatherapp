@@ -56,17 +56,20 @@ function getWeatherByLocation() {
 }
 
 //  Display weather cards
+let isCelsius = true; // default unit
+
 function displayWeather(data) {
   weatherDisplay.innerHTML = "";
 
-  // Current weather
   const current = data.current;
   const location = data.location;
+
+  // Create today card with only Celsius first
   const todayCard = `
     <div class="weather-card bg-white rounded-2xl p-4 shadow-md flex flex-col items-center text-center">
       <h2 class="text-xl font-bold">${location.name}, ${location.country}</h2>
       <img src="${current.condition.icon}" alt="${current.condition.text}" class="weather-icon my-2">
-      <p class="text-2xl font-semibold">${current.temp_c}°C / ${current.temp_f}°F</p>
+      <p id="todayTemp" class="text-2xl font-semibold">${current.temp_c}°C</p>
       <p class="text-gray-600">Condition: ${current.condition.text}</p>
       <p class="text-gray-600">Humidity: ${current.humidity}%</p>
       <p class="text-gray-600">Wind: ${current.wind_kph} km/h</p>
@@ -74,22 +77,14 @@ function displayWeather(data) {
   `;
   weatherDisplay.insertAdjacentHTML("beforeend", todayCard);
 
-  // Background change (sunny, rainy, cloudy)
-  const body = document.body;
-  body.classList.remove("bg-sunny", "bg-rainy", "bg-cloudy", "bg-clear");
-  if (current.condition.text.toLowerCase().includes("rain")) {
-    body.classList.add("bg-rainy");
-  } else if (current.condition.text.toLowerCase().includes("cloud")) {
-    body.classList.add("bg-cloudy");
-  } else if (current.condition.text.toLowerCase().includes("sun") || current.is_day) {
-    body.classList.add("bg-sunny");
-  } else {
-    body.classList.add("bg-clear");
+  //  Extreme temperature alert (>40°C or >104°F)
+  if (current.temp_c > 40) {
+    alert(` Extreme Heat Alert! Current temperature is ${current.temp_c}°C`);
   }
 
-  // Forecast (next 4 days)
+  // Forecast (next 4 days) stays same
   data.forecast.forecastday.forEach((day, index) => {
-    if (index === 0) return; // Skip today
+    if (index === 0) return;
     const card = `
       <div class="weather-card bg-white rounded-2xl p-4 shadow-md flex flex-col items-center text-center">
         <h2 class="text-lg font-bold">${day.date}</h2>
@@ -102,7 +97,24 @@ function displayWeather(data) {
     `;
     weatherDisplay.insertAdjacentHTML("beforeend", card);
   });
+
+  // Toggle functionality
+  const toggleBtn = document.getElementById("toggleUnit");
+  if (toggleBtn) {
+    toggleBtn.onclick = () => {
+      const todayTemp = document.getElementById("todayTemp");
+      if (isCelsius) {
+        todayTemp.textContent = `${current.temp_f}°F`;
+        toggleBtn.textContent = "Show in °C";
+      } else {
+        todayTemp.textContent = `${current.temp_c}°C`;
+        toggleBtn.textContent = "Show in °F";
+      }
+      isCelsius = !isCelsius;
+    };
+  }
 }
+
 
 // Update dropdown for recent cities
 function updateDropdown() {
